@@ -23,16 +23,16 @@ Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
 Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout-success');
 
 
-Route::prefix('admin')->namespace('Admin')->group(function() {
+Route::prefix('admin')->namespace('Admin')->middleware(['auth:sanctum', 'verified'])->group(function() {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 });
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});
+// Route::middleware([
+//     'auth:sanctum',
+//     config('jetstream.auth_session'),
+//     'verified'
+// ])->group(function () {
+//     Route::get('/dashboard', function () {
+//         return view('dashboard');
+//     })->name('dashboard');
+// });
